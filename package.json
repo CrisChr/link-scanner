@@ -1,5 +1,5 @@
 {
-  "name": "deepseek-link-scanner",
+  "name": "link-scanner",
   "private": true,
   "version": "1.0.0",
   "type": "module",
