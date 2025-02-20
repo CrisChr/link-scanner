@@ -100,7 +100,7 @@ function App() {
   return (<div className="w-96 p-4 bg-white relative flex flex-col h-full">
     <h1 className="text-xl font-bold mb-4">Link Scanner</h1>
 
-    {links.length > 0 && (<div className="flex items-center gap-3 mb-2 pb-2 border-b border-gray-200">
+    {!!links.length ? (<div className="flex items-center gap-3 mb-2 pb-2 border-b border-gray-200">
       <span className="min-w-[24px]"/>
       <div className="relative flex items-center">
         <input
@@ -122,7 +122,9 @@ function App() {
         </svg>
       </div>
       <span className="text-sm text-gray-500">{allChecked ? 'Unselect All' : 'Select All'}</span>
-    </div>)}
+    </div>) : <div className="flex items-center flex-col justify-center">
+      <span className="text-lg text-gray-500">No links found</span>
+    </div>}
 
     <div className="space-y-2 mb-4 max-h-96 overflow-y-auto flex-1">
       {links.map((link, index) => (<div key={index} className="flex items-center gap-3">
@@ -157,7 +159,7 @@ function App() {
       </div>))}
     </div>
 
-    <div className="flex gap-2">
+    {!!links.length && <div className="flex gap-2">
       <button
           onClick={openSelectedLinks}
           className="flex-1 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
@@ -170,9 +172,9 @@ function App() {
       >
         Save links to bookmarks
       </button>
-    </div>
+    </div>}
 
-    <div className="flex gap-2 mt-4">
+    {!!links.length && <div className="flex gap-2 mt-4">
       <select
           value={selectedFolder}
           onChange={(e) => setSelectedFolder(e.target.value)}
@@ -195,7 +197,7 @@ function App() {
       >
         Save links to folder
       </button>
-    </div>
+    </div>}
 
     {/* Success Notification */}
     {showNotification && (<div
