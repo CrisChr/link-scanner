@@ -8,7 +8,7 @@ This project is a Chrome extension built with React and Vite that scans the curr
 ## Features
 
 - Scan the current tab for links
-- Select and unselect individual links or all links
+- Copy link
 - Open selected links in new tabs
 - Save selected links to bookmarks
 - Save selected links to a specific folder in bookmarks
