@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Link Scanner",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Scan webpage for links and organize them into a checklist, then open the selected links or save to bookmarks",
   "permissions": [
     "activeTab",
@@ -10,10 +10,5 @@
   ],
   "action": {
     "default_popup": "index.html"
-  },
-  "icons": {
-    "16": "public/icons/icon16.svg",
-    "48": "public/icons/icon48.svg",
-    "128": "public/icons/icon128.svg"
   }
 }
