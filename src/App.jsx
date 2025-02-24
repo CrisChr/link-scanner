@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react'
+import { ClipboardIcon } from '@heroicons/react/24/outline'
 
 function App() {
   const [links, setLinks] = useState([])
@@ -6,6 +7,7 @@ function App() {
   const [folderTitle, setFolderTitle] = useState('')
   const [folders, setFolders] = useState([])
   const [selectedFolder, setSelectedFolder] = useState('')
+  const [showToast, setShowToast] = useState(false)
 
   useEffect(() => {
     // Scan current tab for links
@@ -97,45 +99,23 @@ function App() {
 
   const allChecked = links.length > 0 && links.every(link => link.checked)
 
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(() => {
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 2000);
+    });
+  };
+
   return (<div className="w-96 p-4 bg-white relative flex flex-col h-full">
     <h1 className="text-xl font-bold mb-4">Link Scanner</h1>
 
-    {!!links.length ? (<div className="flex items-center gap-3 mb-2 pb-2 border-b border-gray-200">
-      <span className="min-w-[24px]"/>
-      <div className="relative flex items-center">
-        <input
-            type="checkbox"
-            checked={allChecked}
-            onChange={toggleAll}
-            className="w-4 h-4 appearance-none border-2 border-gray-300 rounded cursor-pointer checked:bg-blue-500 checked:border-blue-500 transition-colors duration-200 ease-in-out"
-        />
-        <svg
-            className="absolute w-4 h-4 pointer-events-none text-white transform scale-0 transition-transform duration-200 ease-in-out peer-checked:scale-100"
-            viewBox="0 0 17 12"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-          <path d="M1 4.5L5.5 9L15 1"/>
-        </svg>
-      </div>
-      <span className="text-sm text-gray-500">{allChecked ? 'Unselect All' : 'Select All'}</span>
-    </div>) : <div className="flex items-center flex-col justify-center">
-      <span className="text-lg text-gray-500">No links found</span>
-    </div>}
-
-    <div className="space-y-2 mb-4 max-h-96 overflow-y-auto flex-1">
-      {links.map((link, index) => (<div key={index} className="flex items-center gap-3">
-          <span className="min-w-[24px] text-sm text-gray-500 text-right">
-            {(index + 1).toString().padStart(2, '')}.
-          </span>
+    {!!links.length ? (
+      <div className="flex items-center gap-3 mb-2">
         <div className="relative flex items-center">
           <input
               type="checkbox"
-              checked={link.checked}
-              onChange={() => toggleLink(index)}
+              checked={allChecked}
+              onChange={toggleAll}
               className="w-4 h-4 appearance-none border-2 border-gray-300 rounded cursor-pointer checked:bg-blue-500 checked:border-blue-500 transition-colors duration-200 ease-in-out"
           />
           <svg
@@ -150,13 +130,37 @@ function App() {
             <path d="M1 4.5L5.5 9L15 1"/>
           </svg>
         </div>
-        <span
-            className="text-sm truncate cursor-default hover:text-blue-600 flex-1"
-            title={link.url}
-        >
+        <span className="text-sm text-gray-500">{allChecked ? '取消全选' : '全选'}</span>
+      </div>
+    ) : <div className="flex items-center flex-col justify-center">
+      <span className="text-lg text-gray-500">未找到链接</span>
+    </div>}
+
+    <div className="space-y-2 mb-4 max-h-96 overflow-y-auto flex-1">
+      {links.map((link, index) => (
+        <div key={index} className="flex items-center gap-2 group">
+          <input
+              type="checkbox"
+              checked={link.checked}
+              onChange={() => toggleLink(index)}
+              className="w-4 h-4 appearance-none border-2 border-gray-300 rounded cursor-pointer checked:bg-blue-500 checked:border-blue-500 transition-colors duration-200 ease-in-out"
+          />
+          <a 
+            href={link.url} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-blue-500 hover:text-blue-700 flex-1 truncate"
+          >
             {link.url}
-          </span>
-      </div>))}
+          </a>
+          <button 
+            onClick={() => copyToClipboard(link.url)}
+            className="p-1 hover:bg-gray-100 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+          >
+            <ClipboardIcon className="h-4 w-4" />
+          </button>
+        </div>
+      ))}
     </div>
 
     {!!links.length && <div className="flex gap-2">
@@ -204,6 +208,12 @@ function App() {
         className="absolute bottom-40 left-1/2 transform -translate-x-1/2 bg-green-100 border border-green-400 text-green-700 px-4 py-2 rounded shadow-lg">
       Save to bookmarks successfully
     </div>)}
+
+    {showToast && (
+      <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-lg shadow-lg text-sm">
+        Copied to clipboard
+      </div>
+    )}
   </div>)
 }
 
