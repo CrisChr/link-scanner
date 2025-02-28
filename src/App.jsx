@@ -136,7 +136,7 @@ function App() {
       <span className="text-lg text-gray-500">No links found</span>
     </div>}
 
-    <div className="space-y-2 flex-1 overflow-y-auto px-3">
+    <div className="space-y-2 flex-1 overflow-y-auto pl-3 pr-1">
       {links.map((link, index) => (
         <div key={index} className="flex items-center gap-2 group w-full">
           <input
