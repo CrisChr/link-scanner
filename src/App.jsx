@@ -106,11 +106,11 @@ function App() {
     });
   };
 
-  return (<div className="w-full p-3 bg-white flex flex-col h-[600px]">
-    <h1 className="text-xl font-bold mb-4">Link Scanner</h1>
+  return (<div className="w-full bg-white flex flex-col h-[600px] pb-5 pt-5">
+    <h1 className="text-xl font-bold mb-4 px-3">Link Scanner</h1>
 
     {!!links.length ? (
-      <div className="flex items-center gap-3 mb-2">
+      <div className="flex items-center gap-3 mb-2 px-3">
         <div className="relative flex items-center">
           <input
               type="checkbox"
@@ -136,7 +136,7 @@ function App() {
       <span className="text-lg text-gray-500">No links found</span>
     </div>}
 
-    <div className="space-y-2 flex-1 overflow-y-auto">
+    <div className="space-y-2 flex-1 overflow-y-auto px-3">
       {links.map((link, index) => (
         <div key={index} className="flex items-center gap-2 group w-full">
           <input
@@ -163,7 +163,7 @@ function App() {
       ))}
     </div>
 
-    {!!links.length && <div className="mt-4">
+    {!!links.length && <div className="mt-4 px-3">
       <div className="flex gap-2 mb-4">
         <button
             onClick={openSelectedLinks}
