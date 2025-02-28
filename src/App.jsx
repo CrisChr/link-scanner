@@ -106,7 +106,7 @@ function App() {
     });
   };
 
-  return (<div className="w-96 p-4 bg-white relative flex flex-col h-full">
+  return (<div className="w-full p-3 bg-white flex flex-col h-[600px]">
     <h1 className="text-xl font-bold mb-4">Link Scanner</h1>
 
     {!!links.length ? (
@@ -130,15 +130,15 @@ function App() {
             <path d="M1 4.5L5.5 9L15 1"/>
           </svg>
         </div>
-        <span className="text-sm text-gray-500">{allChecked ? '取消全选' : '全选'}</span>
+        <span className="text-sm text-gray-500">{allChecked ? 'Unselect all' : 'Select all'}</span>
       </div>
     ) : <div className="flex items-center flex-col justify-center">
-      <span className="text-lg text-gray-500">未找到链接</span>
+      <span className="text-lg text-gray-500">No links found</span>
     </div>}
 
-    <div className="space-y-2 mb-4 max-h-96 overflow-y-auto flex-1">
+    <div className="space-y-2 flex-1 overflow-y-auto">
       {links.map((link, index) => (
-        <div key={index} className="flex items-center gap-2 group">
+        <div key={index} className="flex items-center gap-2 group w-full">
           <input
               type="checkbox"
               checked={link.checked}
@@ -149,7 +149,7 @@ function App() {
             href={link.url} 
             target="_blank" 
             rel="noopener noreferrer" 
-            className="text-blue-500 hover:text-blue-700 flex-1 truncate"
+            className="text-blue-500 hover:text-blue-700 flex-1 truncate pr-2"
           >
             {link.url}
           </a>
@@ -163,44 +163,46 @@ function App() {
       ))}
     </div>
 
-    {!!links.length && <div className="flex gap-2">
-      <button
-          onClick={openSelectedLinks}
-          className="flex-1 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-      >
-        Open selected links
-      </button>
-      <button
-          onClick={saveToBookmarks}
-          className="flex-1 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-      >
-        Save links to bookmarks
-      </button>
-    </div>}
+    {!!links.length && <div className="mt-4">
+      <div className="flex gap-2 mb-4">
+        <button
+            onClick={openSelectedLinks}
+            className="flex-1 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
+          Open selected links
+        </button>
+        <button
+            onClick={saveToBookmarks}
+            className="flex-1 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+        >
+          Save links to bookmarks
+        </button>
+      </div>
 
-    {!!links.length && <div className="flex gap-2 mt-4">
-      <select
-          value={selectedFolder}
-          onChange={(e) => setSelectedFolder(e.target.value)}
-          className="flex-1 px-4 py-2 border rounded"
-      >
-        <option value="">Select Folder</option>
-        <option value="new">Create a New Folder</option>
-        {folders.map(folder => (<option key={folder.id} value={folder.id}>{folder.title}</option>))}
-      </select>
-      {selectedFolder === 'new' && (<input
-          type="text"
-          value={folderTitle}
-          onChange={(e) => setFolderTitle(e.target.value)}
-          placeholder="Folder Title"
-          className="flex-1 px-4 py-2 border rounded"
-      />)}
-      <button
-          onClick={createFolder}
-          className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
-      >
-        Save links to folder
-      </button>
+      <div className="flex gap-2">
+        <select
+            value={selectedFolder}
+            onChange={(e) => setSelectedFolder(e.target.value)}
+            className="flex-1 px-4 py-2 border rounded"
+        >
+          <option value="">Select Folder</option>
+          <option value="new">Create a New Folder</option>
+          {folders.map(folder => (<option key={folder.id} value={folder.id}>{folder.title}</option>))}
+        </select>
+        {selectedFolder === 'new' && (<input
+            type="text"
+            value={folderTitle}
+            onChange={(e) => setFolderTitle(e.target.value)}
+            placeholder="Folder Title"
+            className="flex-1 px-4 py-2 border rounded"
+        />)}
+        <button
+            onClick={createFolder}
+            className="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600"
+        >
+          Save links to folder
+        </button>
+      </div>
     </div>}
 
     {/* Success Notification */}
