@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Link Scanner",
-  "version": "1.1.4",
+  "version": "1.2.0",
   "description": "Scan webpage for links and organize them into a checklist, then open the selected links or save to bookmarks",
   "permissions": [
     "activeTab",

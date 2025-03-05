@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react'
 import { ClipboardIcon } from '@heroicons/react/24/outline'
+import GithubIcon from './components/GithubIcon.jsx'
 
 function App() {
   const [links, setLinks] = useState([])
@@ -107,7 +108,17 @@ function App() {
   };
 
   return (<div className="w-full bg-white flex flex-col h-[600px] pb-5 pt-5">
-    <h1 className="text-xl font-bold mb-4 px-3">Link Scanner</h1>
+    <div className="flex justify-between items-center mb-4 px-3">
+      <h1 className="text-xl font-bold">Link Scanner</h1>
+      <a 
+        href="https://github.com/CrisChr/link-scanner" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="text-gray-700 hover:text-gray-900"
+      >
+        <GithubIcon className="h-6 w-6" />
+      </a>
+    </div>
 
     {!!links.length ? (
       <div className="flex items-center gap-3 mb-2 px-3">
